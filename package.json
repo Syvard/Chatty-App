@@ -19,12 +19,12 @@
     "edit",
     "webpack"
   ],
-  "author": "Noah-Jerome Lotzer <n.lotzer@neusta.de>",
+  "author": "Chris Northwood",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
+    "url": "https://github.com/WhtMage/Chatty-App"
   },
-  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
+  "homepage": "https://github.com/WhtMage/Chatty-App",
   "engines": {
     "node": ">=6.0.0"
   },
