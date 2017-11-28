@@ -3,11 +3,10 @@ import React, {Component} from 'react';
 class MessageList extends Component {
     render() {
       return (
-        <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" />
-        <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
-        </footer>
+        <div className="message system">
+          Anonymous1 changed their name to nomnom.
+        </div>
       );
     }
   }
-  export default App;
+  export default MessageList;

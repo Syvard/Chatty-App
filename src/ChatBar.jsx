@@ -10,4 +10,4 @@ class ChatBar extends Component {
       );
     }
   }
-  export default App;
+  export default ChatBar;
