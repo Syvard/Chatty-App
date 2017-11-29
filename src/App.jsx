@@ -21,10 +21,11 @@ class App extends Component {
         ]
     };
     this.newChat = this.newChat.bind(this);
+    this.socket = null;
   }
 
   newChat = function(value){
-    const newMessage = {username: this.state.currentUser.name, content: value};
+    const newMessage = {username: 'Bob', content: value};
     const messages = this.state.messages.concat(newMessage)
     // Update the state of the app component.
     // Calling setState will trigger a call to render() in App and all child components.
@@ -32,6 +33,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.socket = new WebSocket("ws://localhost:3001")
+    this.socket.onopen = function(event){
+      console.log("Connected to Server")
+    }
+    
     console.log('componentDidMount <App />');
     setTimeout(() => {
       console.log('Simulating incoming message');
