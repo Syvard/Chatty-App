@@ -9,45 +9,44 @@ class App extends Component {
     super();
     this.state= {
         currentUser: {name: 'Bob'}, // optional. if currentUser is not defined, it means the user is Anonymous
-        messages: [
-          {
-            username: 'Bob',
-            content: 'Has anyone seen my marbles?',
-          },
-          {
-            username: 'Anonymous',
-            content: 'No, I think you lost them. You lost your marbles Bob. You lost them for good.'
-          }
-        ]
+        messages: []
     };
     this.newChat = this.newChat.bind(this);
     this.socket = null;
   }
 
-  newChat = function(value){
-    const newMessage = {username: 'Bob', content: value};
-    const messages = this.state.messages.concat(newMessage)
+  newChat = function(name, value){
+    const newMessage = {username: name, content: value};
     // Update the state of the app component.
     // Calling setState will trigger a call to render() in App and all child components.
-    this.setState({messages: messages})
+  
+    this.socket.send(JSON.stringify(newMessage));
   }
 
   componentDidMount() {
-    this.socket = new WebSocket("ws://localhost:3001")
+    this.socket = new WebSocket("ws://localhost:3001");
     this.socket.onopen = function(event){
       console.log("Connected to Server")
     }
+
+    this.socket.addEventListener('message', (msg) => {
+      const newMessageObject = JSON.parse(msg.data);
+      console.log(this.state.messages)
+      this.setState({messages: this.state.messages.concat(newMessageObject)})
+    });
+
     
-    console.log('componentDidMount <App />');
-    setTimeout(() => {
-      console.log('Simulating incoming message');
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: 3, username: 'Michelle', content: 'Hello there!'};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
-    }, 3000);
+    
+    // console.log('componentDidMount <App />');
+    // setTimeout(() => {
+    //   console.log('Simulating incoming message');
+    //   // Add a new message to the list of messages in the data store
+    //   const newMessage = {id: 3, username: 'Michelle', content: 'Hello there!'};
+    //   const messages = this.state.messages.concat(newMessage)
+    //   // Update the state of the app component.
+    //   // Calling setState will trigger a call to render() in App and all child components.
+    //   this.setState({messages: messages})
+    // }, 3000);
   }
 
   render() {
