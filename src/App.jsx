@@ -13,14 +13,19 @@ class App extends Component {
     };
     this.newChat = this.newChat.bind(this);
     this.socket = null;
+    this.newFunction = this.newFunction.bind(this);
   }
 
   newChat = function(name, value){
-    const newMessage = {username: name, content: value};
+    const newMessage = {username: name, content: value, type: "typemessage"};
     // Update the state of the app component.
     // Calling setState will trigger a call to render() in App and all child components.
-  
     this.socket.send(JSON.stringify(newMessage));
+  }
+
+  newFunction = function(old, current){
+    const newName = {oldUsername: old, username: current, type: "typenamechange"}
+    this.socket.send(JSON.stringify(newName));
   }
 
   componentDidMount() {
@@ -31,8 +36,14 @@ class App extends Component {
 
     this.socket.addEventListener('message', (msg) => {
       const newMessageObject = JSON.parse(msg.data);
-      console.log(this.state.messages)
-      this.setState({messages: this.state.messages.concat(newMessageObject)})
+      switch(newMessageObject.type){
+        case "typemessage":
+          this.setState({messages: this.state.messages.concat(newMessageObject)})
+          break;
+        case "typenamechange":
+          this.setState({messages: this.state.messages.concat(newMessageObject.message)});
+        break;
+      }
     });
 
     
@@ -59,7 +70,7 @@ class App extends Component {
         <main className="messages">
           <MessageList messages={this.state.messages}/>
         </main>
-        <ChatBar username={this.state.currentUser.name} newChat={this.newChat}/>
+        <ChatBar username={this.state.currentUser.name} newChat={this.newChat} newFunction={this.newFunction}/>
       </div>
     );
   }

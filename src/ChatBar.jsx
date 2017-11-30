@@ -12,7 +12,6 @@ class ChatBar extends Component {
 
     handleKeyPress = function(event) {
         if(event.key === 'Enter'){
-            console.log(event.target.value) 
             this.props.newChat(this.state.username, event.target.value );  
             event.target.value="" 
         }
@@ -20,8 +19,8 @@ class ChatBar extends Component {
 
     changeUsername = function(event) {
         if(event.key === 'Enter'){
-            this.setState({username: event.target.value})
-           
+            this.props.newFunction(this.state.username, event.target.value) 
+            this.setState({username: event.target.value})      
         };
     }
 

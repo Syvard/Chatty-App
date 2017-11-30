@@ -22,17 +22,29 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 wss.on('connection', function connection(socket) {
 
-  console.log("Client connected");
+  console.log('Client connected');
 
 
   socket.on('message', function incoming(value) {
+
     console.log('received: %s', value);
 
     let valueObject = JSON.parse(value);
-    valueObject.id = uuidv4();
+    console.log(valueObject);
+    let valueString;
+
+    switch(valueObject.type) {
+      case 'typemessage':
+        valueObject.id = uuidv4();
+        break;
+      case 'typenamechange':
+      console.log('I am in your typenamechange')
+        valueObject.id = uuidv4();
+        valueObject.message = `${valueObject.oldUsername} has changed to ${valueObject.username}`
+        break;
+    }
 
     valueString = JSON.stringify(valueObject)
-
     wss.clients.forEach((client) => {
       if (client.readyState == ws.OPEN) {
         client.send(valueString);
