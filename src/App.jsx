@@ -41,7 +41,7 @@ class App extends Component {
           this.setState({messages: this.state.messages.concat(newMessageObject)})
           break;
         case "typenamechange":
-          this.setState({messages: this.state.messages.concat(newMessageObject.message)});
+          this.setState({messages: this.state.messages.concat(newMessageObject)})
         break;
       }
     });

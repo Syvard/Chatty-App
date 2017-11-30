@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Message from './Message.jsx';
+import Announcement from './Announcement.jsx';
 
 class MessageList extends Component {
     render() {
@@ -9,11 +10,29 @@ class MessageList extends Component {
     // some data got itself turned upside down
     // So take a little minute at your own workstation
     // I'll tell you how to turn arrays of data into presentation.
+
+    // const announcement = this.props.messages.map((messageDataObject.message => {
+    //   return <NameChange
+    //   message={messageDataObject.message}/>;
+    // });
+
     
     const message = this.props.messages.map((messageDataObject, index)=> {
-        return <Message 
-        message={messageDataObject}
-        key={index}/>;
+      switch(messageDataObject.type){
+        case 'typemessage':
+        console.log('I\'m a message');
+          return <Message 
+          message={messageDataObject}
+          key={index}/>;
+          break;
+
+        case 'typenamechange':
+        console.log('I\'m a name change');
+          return <Announcement
+          message={messageDataObject}
+          key={index}/>;
+          break;
+      }
     });
       return (
         <div>

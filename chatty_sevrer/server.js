@@ -40,7 +40,7 @@ wss.on('connection', function connection(socket) {
       case 'typenamechange':
       console.log('I am in your typenamechange')
         valueObject.id = uuidv4();
-        valueObject.message = `${valueObject.oldUsername} has changed to ${valueObject.username}`
+        valueObject.content = `${valueObject.oldUsername} has changed to ${valueObject.username}`
         break;
     }
 

@@ -4,7 +4,7 @@ class ChatBar extends Component {
     constructor(props){
         super(props);
         this.state= {
-            username: ""
+            username: "Anonymous"
         };
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.changeUsername = this.changeUsername.bind(this);
@@ -30,7 +30,7 @@ class ChatBar extends Component {
     console.log('Rendering <ChatBar/>');
       return (
         <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" onKeyPress={this.changeUsername} />
+        <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={this.state.username} onKeyPress={this.changeUsername} />
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress={this.handleKeyPress} />
         </footer>
       );
