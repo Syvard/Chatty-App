@@ -42,7 +42,6 @@ const userString = JSON.stringify(userCount);
         valueObject.id = uuidv4();
         break;
       case 'typenamechange':
-      console.log('I am in your typenamechange')
         valueObject.id = uuidv4();
         valueObject.content = `${valueObject.oldUsername} has changed to ${valueObject.username}`
         break;

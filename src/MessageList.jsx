@@ -4,9 +4,7 @@ import Announcement from './Announcement.jsx';
 
 class MessageList extends Component {
     render() {
-    console.log('Rendering <MessageList/>');
-
-
+      
     // v leaving this in here because Joel gave me hilarious help then wrote this.
     // This is the story all about how
     // some data got itself turned upside down

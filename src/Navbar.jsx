@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 class Navbar extends Component {
     render() {
-    console.log('Rendering <Navbar/>');
       return (
         <div className="message announcement">
           <nav className="navbar">

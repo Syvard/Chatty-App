@@ -37,7 +37,6 @@ class App extends Component {
   componentDidMount() {
     this.socket = new WebSocket("ws://localhost:3001");
     this.socket.onopen = function(event){
-      console.log("Connected to Server")
     }
 
     this.socket.addEventListener('message', (msg) => {
@@ -51,14 +50,12 @@ class App extends Component {
         break;
         case "userCount":
         this.setState({users: newMessageObject.number})
-        console.log(newMessageObject.number)
       }
     });
   }
 
   //Renders the html with our modules that display updated code through the virtual DOM.
   render() {
-    console.log('Rendering <App/>');
     return (
       <div>
         <Navbar users={this.state.users}/>
