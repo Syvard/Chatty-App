@@ -19,7 +19,7 @@ class ChatBar extends Component {
 
     changeUsername = function(event) {
         if(event.key === 'Enter'){
-            this.props.newFunction(this.state.username, event.target.value) 
+            this.props.nameChange(this.state.username, event.target.value) 
             this.setState({username: event.target.value})      
         };
     }
