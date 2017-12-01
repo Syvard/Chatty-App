@@ -15,9 +15,10 @@ class App extends Component {
     };
     this.newChat = this.newChat.bind(this);
     this.socket = null;
-    this.newFunction = this.newFunction.bind(this);
+    this.nameChange = this.nameChange.bind(this);
   }
 
+  //Creates a new chat message to go into the chat window, sends information to the websocket server.
   newChat = function(name, value){
     const newMessage = {username: name, content: value, type: "typemessage"};
     // Update the state of the app component.
@@ -25,11 +26,14 @@ class App extends Component {
     this.socket.send(JSON.stringify(newMessage));
   }
 
-  newFunction = function(old, current){
+  //Sends the old username and the updated username to the websocket server.
+  nameChange = function(old, current){
     const newName = {oldUsername: old, username: current, type: "typenamechange"}
     this.socket.send(JSON.stringify(newName));
   }
 
+  //Handles the connection to server as well as sorts the information coming from the websocket server
+  //displaying the messages that are filtered based on the switch function.
   componentDidMount() {
     this.socket = new WebSocket("ws://localhost:3001");
     this.socket.onopen = function(event){
@@ -50,21 +54,9 @@ class App extends Component {
         console.log(newMessageObject.number)
       }
     });
-
-    
-    
-    // console.log('componentDidMount <App />');
-    // setTimeout(() => {
-    //   console.log('Simulating incoming message');
-    //   // Add a new message to the list of messages in the data store
-    //   const newMessage = {id: 3, username: 'Michelle', content: 'Hello there!'};
-    //   const messages = this.state.messages.concat(newMessage)
-    //   // Update the state of the app component.
-    //   // Calling setState will trigger a call to render() in App and all child components.
-    //   this.setState({messages: messages})
-    // }, 3000);
   }
 
+  //Renders the html with our modules that display updated code through the virtual DOM.
   render() {
     console.log('Rendering <App/>');
     return (
@@ -73,7 +65,7 @@ class App extends Component {
         <main className="messages">
           <MessageList messages={this.state.messages}/>
         </main>
-        <ChatBar username={this.state.currentUser.name} newChat={this.newChat} newFunction={this.newFunction}/>
+        <ChatBar username={this.state.currentUser.name} newChat={this.newChat} nameChange={this.nameChange}/>
       </div>
     );
   }

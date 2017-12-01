@@ -6,16 +6,12 @@ class MessageList extends Component {
     render() {
     console.log('Rendering <MessageList/>');
 
+
+    // v leaving this in here because Joel gave me hilarious help then wrote this.
     // This is the story all about how
     // some data got itself turned upside down
     // So take a little minute at your own workstation
     // I'll tell you how to turn arrays of data into presentation.
-
-    // const announcement = this.props.messages.map((messageDataObject.message => {
-    //   return <NameChange
-    //   message={messageDataObject.message}/>;
-    // });
-
     
     const message = this.props.messages.map((messageDataObject, index)=> {
       switch(messageDataObject.type){

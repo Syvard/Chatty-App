@@ -24,6 +24,7 @@ wss.on('connection', function connection(socket) {
 
   console.log('Client connected');
 
+  //Sees the users that are on the server and sends that information back to the App.js
 const userCount = {type: 'userCount', number: wss.clients.size};
 const userString = JSON.stringify(userCount);
   wss.clients.forEach((client) => {
@@ -32,15 +33,10 @@ const userString = JSON.stringify(userCount);
     }
   });
 
-
+  //Receives the message or name change information from App.js and decided how to respond based on the type field.
   socket.on('message', function incoming(value) {
-
-    console.log('received: %s', value);
-
     let valueObject = JSON.parse(value);
-    console.log(valueObject);
     let valueString;
-
     switch(valueObject.type) {
       case 'typemessage':
         valueObject.id = uuidv4();
@@ -51,7 +47,7 @@ const userString = JSON.stringify(userCount);
         valueObject.content = `${valueObject.oldUsername} has changed to ${valueObject.username}`
         break;
     }
-
+    //Then sends the result of the switch back to App.js
     valueString = JSON.stringify(valueObject)
     wss.clients.forEach((client) => {
       if (client.readyState == ws.OPEN) {
