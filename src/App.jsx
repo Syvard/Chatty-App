@@ -3,13 +3,15 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import Message from './Message.jsx';
 import MessageList from './MessageList.jsx';
+import Navbar from './Navbar.jsx';
 
 class App extends Component {
   constructor() {
     super();
     this.state= {
         currentUser: {name: 'Bob'}, // optional. if currentUser is not defined, it means the user is Anonymous
-        messages: []
+        messages: [],
+        users: 0
     };
     this.newChat = this.newChat.bind(this);
     this.socket = null;
@@ -43,6 +45,9 @@ class App extends Component {
         case "typenamechange":
           this.setState({messages: this.state.messages.concat(newMessageObject)})
         break;
+        case "userCount":
+        this.setState({users: newMessageObject.number})
+        console.log(newMessageObject.number)
       }
     });
 
@@ -64,9 +69,7 @@ class App extends Component {
     console.log('Rendering <App/>');
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-        </nav>
+        <Navbar users={this.state.users}/>
         <main className="messages">
           <MessageList messages={this.state.messages}/>
         </main>

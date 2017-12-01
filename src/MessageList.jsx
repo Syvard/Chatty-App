@@ -20,14 +20,12 @@ class MessageList extends Component {
     const message = this.props.messages.map((messageDataObject, index)=> {
       switch(messageDataObject.type){
         case 'typemessage':
-        console.log('I\'m a message');
           return <Message 
           message={messageDataObject}
           key={index}/>;
           break;
 
         case 'typenamechange':
-        console.log('I\'m a name change');
           return <Announcement
           message={messageDataObject}
           key={index}/>;

@@ -24,6 +24,14 @@ wss.on('connection', function connection(socket) {
 
   console.log('Client connected');
 
+const userCount = {type: 'userCount', number: wss.clients.size};
+const userString = JSON.stringify(userCount);
+  wss.clients.forEach((client) => {
+    if (client.readyState == ws.OPEN) {
+      client.send(userString);
+    }
+  });
+
 
   socket.on('message', function incoming(value) {
 
